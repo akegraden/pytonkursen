@@ -1,9 +1,6 @@
-#Decorators $ bpython
-from ast import match_case
+# Lab 1
 import inquirer
 import random
-
-
 
 def sten_sax():
     c_win = 0

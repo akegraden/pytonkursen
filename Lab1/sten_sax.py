@@ -1,4 +1,4 @@
-# Lab 1
+# Lab 1 The game Spelet Sten, Sax och Påse
 import inquirer
 import random
 
@@ -16,50 +16,42 @@ def sten_sax():
     # index av det val användaren gjorde (Sten=0, Sax=1, Påse=2)
     u_choice=mojliga_val.index(answers["val"])  
 
-    # slumpa ett tal mellan 0 och 2
+    # slumpa ett tal från 0 till 2
     c_choice = random.randrange(0, 3)
+    print(f'Du: {mojliga_val[u_choice]}. Datorn: {mojliga_val[c_choice]} ')
 
-    if c_choice == u_choice:
-        print("Ingen vann!")
-        winner="oavgjort"
-    elif c_choice == 0 and u_choice == 1: 
-        print("Datorn sten, du sax. Datorn vann!")
-        winner='Datorn'
+    
+    comp = f"{c_choice}{u_choice}"  # konkatenerar datorns "val" med användarens "val"
+    user = f"{u_choice}{c_choice}"   # konkatenerar användarens "val" med datornss "val"
+    
+    winnerList = ["01", "12", "20"]     # kombinationer av index 
+    compWinner = comp in winnerList     # Kontrollerar om datorn har vunnit (False/True)
+    userWinner = user in winnerList     # Kontrollerar om användaren har vunnit (False/True)
+    print(f'User: {userWinner} Computer: {compWinner}')
 
-    elif c_choice == 1 and u_choice == 2: 
-        print("Datorn sax, du påse. Datorn vann!")
-        winner='Datorn'
+    if compWinner == True:      # Datorn vann
+        winner = "Datorn"
+    elif userWinner == True:     # Du vann
+        winner = "Du"
+    else:                       # samma val, ingen vann
+        winner = "ingen"
 
-    elif c_choice == 2 and u_choice == 0: 
-        print("Datorn påse, du sten. Datorn vann!")
-        winner='Datorn'
+    print(f'Vinnare denna omgång är {winner}')
 
-    elif u_choice == 0 and c_choice == 1: 
-        print("Du sten, datorn sax. Du vann!")
-        winner='Du'
-
-    elif u_choice == 1 and c_choice == 2: 
-        print("Du sax, datorn påse. Du vann!")
-        winner='Du'
-
-    elif u_choice == 2 and c_choice == 0: 
-        print("Du påse, datorn sten. Du vann!")
-        winner='Du'
-
-    return winner
+    return winner   #Returnera vem som vann
 
 #---------------
 
 c_tot = 0
 u_tot = 0
-i=0
+
+# Loopar till någo har vunnit
 while True:
     result = sten_sax()
-    i=i+1    
     if result=="Datorn":
-        c_tot=c_tot+1
+        c_tot=c_tot+1       # Summerar antal vinster för datorn
     elif result=="Du":
-        u_tot=u_tot+1
+        u_tot=u_tot+1       # Summerar antal vinster för  användaren
     
     if c_tot==3 or u_tot==3:
         print("Vi har en segrare..")
